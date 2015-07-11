@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+<h:head>
+	<h:outputStylesheet>
+	.tabelaPessoas{border-style: groove;}
+	.coluna1{background: red;}
+	.coluna2{background: blue;}
+	.coluna3{background: yellow;}
+	.messageNome{color: red;}
+	</h:outputStylesheet>
+</h:head>
+<h:body>
+	<h:form>
+		<h:panelGrid columns="2">
+			<h:outputLabel value="Id: "
+				rendered="#{pessoaMB.selectedBean.id != null}" />
+			<h:inputText readonly="true" value="#{pessoaMB.selectedBean.id}"
+				rendered="#{pessoaMB.selectedBean.id != null}" />
+
+			<h:outputLabel for="inputNome" value="Nome: " />
+			<h:panelGroup>
+				<h:inputText id="inputNome" required="true"
+					requiredMessage="Favor, informar um nome!"
+					value="#{pessoaMB.selectedBean.nome}" />
+				<h:message for="inputNome" styleClass="messageNome" />
+			</h:panelGroup>
+		</h:panelGrid>
+
+		<h:commandButton action="#{pessoaMB.salvar()}" value="Salvar" />
+		<h:commandButton action="#{pessoaMB.cancelar()}" value="Cancelar"
+			rendered="#{pessoaMB.selectedBean.id != null}" immediate="true" />
+
+		<h:dataTable value="#{pessoaMB.listPessoa}" var="pessoa"
+			columnClasses="coluna1,coluna2,coluna3" styleClass="tabelaPessoas">
+			<h:column>
+				<f:facet name="header">
+					<h:outputLabel value="Id" />
+				</f:facet>
+				<h:outputLabel value="#{pessoa.id}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputLabel value="Nome" />
+				</f:facet>
+				<h:outputLabel value="#{pessoa.nome}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputLabel value="Opções" />
+				</f:facet>
+				<h:commandButton value="Editar" immediate="true">
+					<f:setPropertyActionListener value="#{pessoa}"
+						target="#{pessoaMB.selectedBean}" />
+				</h:commandButton>
+				<h:commandButton value="Deletar" action="#{pessoaMB.deletar()}"
+					immediate="true">
+					<f:setPropertyActionListener value="#{pessoa}"
+						target="#{pessoaMB.selectedBean}" />
+				</h:commandButton>
+			</h:column>
+		</h:dataTable>
+		<h:commandButton action="endereco.jsf" immediate="true"
+			value="Ir para tela de endereço" />
+	</h:form>
+</h:body>
+</html>

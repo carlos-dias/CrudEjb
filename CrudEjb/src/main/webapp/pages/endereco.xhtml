@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+<h:head>
+	<h:outputStylesheet>
+	.tabelaEnderecos{border-style: groove;}
+	.coluna1{background: red;}
+	.coluna2{background: blue;}
+	.coluna3{background: yellow;}
+	.coluna4{background: green;}
+	.message{color: red;}
+	</h:outputStylesheet>
+</h:head>
+<h:body>
+	<h:form>
+		<h:panelGrid columns="2">
+			<h:outputLabel value="Id: "
+				rendered="#{enderecoMB.selectedBean.id != null}" />
+			<h:inputText readonly="true" value="#{enderecoMB.selectedBean.id}"
+				rendered="#{enderecoMB.selectedBean.id != null}" />
+
+			<h:outputLabel for="inputRua" value="Nome: " />
+			<h:panelGroup>
+				<h:inputText id="inputRua" required="true"
+					requiredMessage="Favor, informar um nome!"
+					value="#{enderecoMB.selectedBean.rua}" />
+				<h:message for="inputRua" styleClass="message" />
+			</h:panelGroup>
+
+			<h:outputLabel for="selectPessoa" value="Pessoa: " />
+			<h:panelGroup>
+				<h:selectOneMenu id="selectPessoa" required="true"
+					requiredMessage="Favor, selecionar pessoa"
+					value="#{enderecoMB.selectedBean.pessoa}"
+					converter="entityConverter">
+					<f:selectItem itemLabel="Selecione..." noSelectionOption="true" />
+					<f:selectItems value="#{enderecoMB.listPessoa}" var="pessoa"
+						itemLabel="#{pessoa.nome}" itemValue="#{pessoa}" />
+				</h:selectOneMenu>
+				<h:message for="selectPessoa" styleClass="message" />
+			</h:panelGroup>
+		</h:panelGrid>
+
+		<h:commandButton action="#{enderecoMB.salvar()}" value="Salvar" />
+		<h:commandButton action="#{enderecoMB.cancelar()}" value="Cancelar"
+			rendered="#{enderecoMB.selectedBean.id != null}" immediate="true" />
+
+		<h:dataTable value="#{enderecoMB.listEndereco}" var="endereco"
+			columnClasses="coluna1,coluna2,coluna3,coluna4"
+			styleClass="tabelaEnderecos">
+			<h:column>
+				<f:facet name="header">
+					<h:outputLabel value="Id" />
+				</f:facet>
+				<h:outputLabel value="#{endereco.id}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputLabel value="Rua" />
+				</f:facet>
+				<h:outputLabel value="#{endereco.rua}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputLabel value="Pessoa" />
+				</f:facet>
+				<h:outputLabel value="#{endereco.pessoa.nome}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputLabel value="Opções" />
+				</f:facet>
+				<h:commandButton value="Editar" immediate="true">
+					<f:setPropertyActionListener value="#{endereco}"
+						target="#{enderecoMB.selectedBean}" />
+				</h:commandButton>
+				<h:commandButton value="Deletar" action="#{enderecoMB.deletar()}"
+					immediate="true">
+					<f:setPropertyActionListener value="#{endereco}"
+						target="#{enderecoMB.selectedBean}" />
+				</h:commandButton>
+			</h:column>
+		</h:dataTable>
+		<h:commandButton action="pessoa" immediate="true"
+			value="Ir para tela de pessoa" />
+	</h:form>
+</h:body>
+</html>

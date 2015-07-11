@@ -4,8 +4,8 @@ import java.io.Serializable;
 
 import javax.ejb.Stateless;
 
+import br.com.crudejb.abstracts.AbstractDao;
 import br.com.crudejb.bean.Endereco;
-import br.com.crudejb.bean.abstracts.AbstractDao;
 
 @Stateless
 public class EnderecoDao extends AbstractDao<Endereco> implements Serializable{

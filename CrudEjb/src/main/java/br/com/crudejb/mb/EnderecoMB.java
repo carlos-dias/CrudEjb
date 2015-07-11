@@ -8,9 +8,9 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 
+import br.com.crudejb.abstracts.AbstractMB;
 import br.com.crudejb.bean.Endereco;
 import br.com.crudejb.bean.Pessoa;
-import br.com.crudejb.bean.abstracts.AbstractMB;
 import br.com.crudejb.dao.EnderecoDao;
 import br.com.crudejb.dao.PessoaDao;
 

@@ -7,7 +7,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-import br.com.crudejb.bean.abstracts.AbstractBean;
+import br.com.crudejb.abstracts.AbstractBean;
 
 @FacesConverter(value = "entityConverter", forClass = AbstractBean.class)
 public class EntityConverter implements Converter {

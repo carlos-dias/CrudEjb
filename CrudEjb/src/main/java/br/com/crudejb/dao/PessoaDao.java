@@ -4,8 +4,8 @@ import java.io.Serializable;
 
 import javax.ejb.Stateless;
 
+import br.com.crudejb.abstracts.AbstractDao;
 import br.com.crudejb.bean.Pessoa;
-import br.com.crudejb.bean.abstracts.AbstractDao;
 
 @Stateless
 public class PessoaDao extends AbstractDao<Pessoa> implements Serializable {

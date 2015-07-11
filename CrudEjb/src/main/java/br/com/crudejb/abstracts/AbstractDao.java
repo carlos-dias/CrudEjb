@@ -1,4 +1,4 @@
-package br.com.crudejb.bean.abstracts;
+package br.com.crudejb.abstracts;
 
 import java.io.Serializable;
 import java.util.List;

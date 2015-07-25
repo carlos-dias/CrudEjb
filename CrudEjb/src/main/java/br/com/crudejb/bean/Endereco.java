@@ -9,7 +9,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import br.com.crudejb.abstracts.AbstractBean;
+import br.com.crudejb.bean.abstracts.AbstractBean;
 
 @Entity
 @Table

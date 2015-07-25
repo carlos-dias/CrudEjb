@@ -8,11 +8,11 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 
-import br.com.crudejb.abstracts.AbstractMB;
 import br.com.crudejb.bean.Endereco;
 import br.com.crudejb.bean.Pessoa;
-import br.com.crudejb.dao.EnderecoDao;
-import br.com.crudejb.dao.PessoaDao;
+import br.com.crudejb.facade.EnderecoFacade;
+import br.com.crudejb.facade.PessoaFacade;
+import br.com.crudejb.mb.abstracts.AbstractMB;
 
 @ManagedBean
 @ViewScoped
@@ -21,9 +21,9 @@ public class EnderecoMB extends AbstractMB<Endereco>implements Serializable {
 	private static final long serialVersionUID = 2361969987374512843L;
 
 	@Inject
-	private PessoaDao pessoaDao;
+	private PessoaFacade pessoaFacade;
 	@Inject
-	private EnderecoDao enderecoDao;
+	private EnderecoFacade enderecoFacade;
 
 	private List<Pessoa> listPessoa;
 	private List<Endereco> listEndereco;
@@ -37,17 +37,17 @@ public class EnderecoMB extends AbstractMB<Endereco>implements Serializable {
 
 	public void salvar() {
 		if (getSelectedBean().getId() == null) {
-			adicionarEndereco(enderecoDao.insert(getSelectedBean()));
+			adicionarEndereco(enderecoFacade.insert(getSelectedBean()));
 		} else {
 			removerEndereco(getSelectedBean());
-			adicionarEndereco(enderecoDao.update(getSelectedBean()));
+			adicionarEndereco(enderecoFacade.update(getSelectedBean()));
 		}
 		novoEndereco();
 	}
 
 	public void deletar() {
 		removerEndereco(getSelectedBean());
-		enderecoDao.delete(getSelectedBean());
+		enderecoFacade.delete(getSelectedBean());
 		novoEndereco();
 	}
 
@@ -69,11 +69,11 @@ public class EnderecoMB extends AbstractMB<Endereco>implements Serializable {
 	}
 
 	private void carregarPessoas() {
-		listPessoa = pessoaDao.findAll();
+		listPessoa = pessoaFacade.findAll();
 	}
 
 	private void carregarEnderecos() {
-		listEndereco = enderecoDao.findAll();
+		listEndereco = enderecoFacade.findAll();
 	}
 
 	public List<Pessoa> getListPessoa() {

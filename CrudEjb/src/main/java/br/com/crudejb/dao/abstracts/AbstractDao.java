@@ -1,10 +1,12 @@
-package br.com.crudejb.abstracts;
+package br.com.crudejb.dao.abstracts;
 
 import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
+import br.com.crudejb.bean.abstracts.AbstractBean;
 
 public abstract class AbstractDao<T extends AbstractBean> {
 	private Class<T> entityClass;

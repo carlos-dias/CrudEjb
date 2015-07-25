@@ -1,4 +1,4 @@
-package br.com.crudejb.abstracts;
+package br.com.crudejb.mb.abstracts;
 
 public abstract class AbstractMB<E> {
 	private E selectedBean;

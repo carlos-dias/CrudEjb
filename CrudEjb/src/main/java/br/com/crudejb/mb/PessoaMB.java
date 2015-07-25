@@ -8,9 +8,9 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 
-import br.com.crudejb.abstracts.AbstractMB;
 import br.com.crudejb.bean.Pessoa;
-import br.com.crudejb.dao.PessoaDao;
+import br.com.crudejb.facade.PessoaFacade;
+import br.com.crudejb.mb.abstracts.AbstractMB;
 
 @ManagedBean
 @ViewScoped
@@ -19,7 +19,8 @@ public class PessoaMB extends AbstractMB<Pessoa>implements Serializable {
 	private static final long serialVersionUID = -305017905383380165L;
 
 	@Inject
-	private PessoaDao pessoaDao;
+	private PessoaFacade pessoaFacade;
+	
 	private List<Pessoa> listPessoa;
 
 	@PostConstruct
@@ -30,17 +31,17 @@ public class PessoaMB extends AbstractMB<Pessoa>implements Serializable {
 
 	public void salvar() {
 		if (getSelectedBean().getId() == null) {
-			adicionarPessoa(pessoaDao.insert(getSelectedBean()));
+			adicionarPessoa(pessoaFacade.insert(getSelectedBean()));
 		} else {
 			removerPessoa(getSelectedBean());
-			adicionarPessoa(pessoaDao.update(getSelectedBean()));
+			adicionarPessoa(pessoaFacade.update(getSelectedBean()));
 		}
 		novaPessoa();
 	}
 
 	public void deletar() {
 		removerPessoa(getSelectedBean());
-		pessoaDao.delete(getSelectedBean());
+		pessoaFacade.delete(getSelectedBean());
 		novaPessoa();
 	}
 
@@ -61,7 +62,7 @@ public class PessoaMB extends AbstractMB<Pessoa>implements Serializable {
 	}
 
 	private void carregarPessoas() {
-		listPessoa = pessoaDao.findAll();
+		listPessoa = pessoaFacade.findAll();
 	}
 
 	public List<Pessoa> getListPessoa() {
